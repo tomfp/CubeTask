@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConverterApi.Tests", "test\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HistoryApi.Tests", "test\HistoryApi.Tests\HistoryApi.Tests.csproj", "{D4C85E80-62FB-4D44-A20D-D5D90D0479D0}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConvertClient", "src\ConvertClient\ConvertClient.csproj", "{1AA254C8-689F-48EB-B35F-4BC77F81BAFD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{D4C85E80-62FB-4D44-A20D-D5D90D0479D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4C85E80-62FB-4D44-A20D-D5D90D0479D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4C85E80-62FB-4D44-A20D-D5D90D0479D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AA254C8-689F-48EB-B35F-4BC77F81BAFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AA254C8-689F-48EB-B35F-4BC77F81BAFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AA254C8-689F-48EB-B35F-4BC77F81BAFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AA254C8-689F-48EB-B35F-4BC77F81BAFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{AA67B280-5F15-483D-AE4A-32DB1D899537} = {55D2DF75-2E35-47BF-9509-F24B2B946E01}
 		{46516AFD-33B1-4CC5-8B47-FA9910EA4DFA} = {12B99AE3-591B-40DE-9807-0F834FE76C26}
 		{D4C85E80-62FB-4D44-A20D-D5D90D0479D0} = {12B99AE3-591B-40DE-9807-0F834FE76C26}
+		{1AA254C8-689F-48EB-B35F-4BC77F81BAFD} = {55D2DF75-2E35-47BF-9509-F24B2B946E01}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FC569C90-B4DB-48AF-A181-056E1CF8CF0E}

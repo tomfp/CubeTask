@@ -1,0 +1,49 @@
+﻿@page "/"
+@using SharedData
+@using ConvertClient.Model
+
+<EditForm Model="temperatureModel">
+    <PageTitle>Temperature Conversion</PageTitle>
+
+    <h1>Temperature Conversion</h1>
+    <p>
+        Enter the temperature to be converted, and the units to convert from.
+    </p>
+    <input placeholder="Temperatue"
+           @bind="temperatureModel.Temperature" class="form-control" />
+    <br />
+    <p>
+        <InputRadioGroup name="units" @bind-Value="temperatureModel.FromUnits">
+            From Unit:
+            <br />
+            @foreach (var unit in (EnumTemperatureUnit[])Enum
+                .GetValues(typeof(EnumTemperatureUnit)))
+            {
+                <InputRadio Value="unit"></InputRadio>
+                <text>&nbsp;</text>
+
+                @unit
+
+                <br />
+            }
+        </InputRadioGroup>
+    </p>
+    <button class="btn btn-primary" type="submit" onclick="@GetResults">Convert</button>
+</EditForm>
+<p>
+    <text>@temperatureModel.ConversionResult</text>
+</p>
+@*@code
+{
+    TemperatureModel temperatureModel = new TemperatureModel();
+
+    private void GetResults()
+    {
+        var selecteUnits = temperatureModel.FromUnits;
+
+        // TODO call service
+        var placehoder = 0;
+    }
+
+}
+*@
