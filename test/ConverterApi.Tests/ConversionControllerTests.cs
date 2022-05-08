@@ -15,30 +15,34 @@ public class ConversionControllerTests
 
     private readonly ILogger<TemperatureConversionController> _loggerMock =
         new Mock<ILogger<TemperatureConversionController>>().Object;
+    private readonly IHistoryService _historyServiceMock = 
+        new Mock<IHistoryService>().Object;
 
     [TestMethod]
-    public async Task ConversionController_NullRequest_ReturnsBadRequest()
+    public  void ConversionController_NullRequest_ReturnsBadRequest()
     {
         var conversionCalculatorMock = new Mock<IConversionCalculator>();
 
         var subjectUnderTest = new TemperatureConversionController(
             _loggerMock,
-            conversionCalculatorMock.Object);
+            conversionCalculatorMock.Object,
+            _historyServiceMock);
 
-        var result = await subjectUnderTest.ConvertTemperature(null);
+        var result =  subjectUnderTest.ConvertTemperature(null);
         Assert.IsInstanceOfType(result, typeof(BadRequestResult));
     }
     [TestMethod]
-    public async Task ConversionController_FromUnits_NotSpecified_ReturnsBadRequest()
+    public void ConversionController_FromUnits_NotSpecified_ReturnsBadRequest()
     {
         var conversionCalculatorMock = new Mock<IConversionCalculator>();
 
         var subjectUnderTest = new TemperatureConversionController(
             _loggerMock,
-            conversionCalculatorMock.Object);
+            conversionCalculatorMock.Object,
+            _historyServiceMock);
 
         var input = new ConversionRequest { FromUnits = EnumTemperatureUnit.NotSpecified };
-        var result = await subjectUnderTest.ConvertTemperature(input);
+        var result =  subjectUnderTest.ConvertTemperature(input);
         Assert.IsInstanceOfType(result, typeof(BadRequestResult));
     }
 

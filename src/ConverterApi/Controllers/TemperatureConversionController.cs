@@ -1,31 +1,36 @@
 ﻿using ConverterApi.Services;
 
 using Microsoft.AspNetCore.Mvc;
-
+using Newtonsoft.Json;
 using SharedData;
 
 namespace ConverterApi.Controllers
 {
+    [Produces("application/json")]
     [ApiController]
     [Route("[controller]")]
     public class TemperatureConversionController : ControllerBase
     {
         private readonly ILogger<TemperatureConversionController> _logger;
         private readonly IConversionCalculator _conversionCalculator;
+        private readonly IHistoryService _historyService;
         public TemperatureConversionController(
             ILogger<TemperatureConversionController> logger,
-            IConversionCalculator conversionCalculator)
+            IConversionCalculator conversionCalculator,
+            IHistoryService historyService)
         {
             _logger = logger;
             _conversionCalculator = conversionCalculator;
+            _historyService = historyService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> ConvertTemperature([FromBody] ConversionRequest? request)
+        public IActionResult ConvertTemperature([FromBody] ConversionRequest? request)
         {
             try
             {
                 // TODO Log Requests
+                _historyService.LogUsage(request);
                 //  some basic validation
                 if (request == null)
                 {
@@ -35,7 +40,7 @@ namespace ConverterApi.Controllers
                 {
                     return BadRequest();
                 }
-                var result = await _conversionCalculator.Convert(request);
+                var result =  _conversionCalculator.Convert(request);
                 return Ok(result);
             }
             catch (Exception e)

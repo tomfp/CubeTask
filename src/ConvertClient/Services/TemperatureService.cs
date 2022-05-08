@@ -1,5 +1,7 @@
 ﻿using System.Text;
+
 using Newtonsoft.Json;
+
 using SharedData;
 
 namespace ConvertClient.Services
@@ -21,17 +23,25 @@ namespace ConvertClient.Services
                 ClientId = ConfigValues.ClientId
             };
             var json = new StringContent(JsonConvert.SerializeObject(conversionRequest), Encoding.UTF8, "application/json");
-            ServiceResponse<ConversionResult> serviceResponse = new ServiceResponse<ConversionResult>();
             var response = await httpClient.PostAsync("TemperatureConversion", json);
-            serviceResponse.StatusCode = response.StatusCode;
+            var serviceResponse = await SetResponse<ConversionResult>(response);
             if (response.IsSuccessStatusCode)
             {
                 var returnObject = await response.Content.ReadAsStringAsync();
-                serviceResponse.Data  = JsonConvert.DeserializeObject<ConversionResult>(returnObject);
+                serviceResponse.Data = JsonConvert.DeserializeObject<ConversionResult>(returnObject);
             }
-            else
+            return serviceResponse;
+        }
+
+        private async Task<ServiceResponse<T>> SetResponse<T>(HttpResponseMessage response)
+        {
+            var serviceResponse = new ServiceResponse<T>
             {
-                serviceResponse.ErrorMessage = response.ReasonPhrase;
+                StatusCode = response.StatusCode,
+            };
+            if (!response.IsSuccessStatusCode)
+            {
+                serviceResponse.ErrorMessage = await response.Content.ReadAsStringAsync();
             }
             return serviceResponse;
         }

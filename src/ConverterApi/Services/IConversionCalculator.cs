@@ -4,6 +4,6 @@ namespace ConverterApi.Services
 {
     public interface IConversionCalculator
     {
-        Task<ConversionResult> Convert(ConversionRequest request);
+        ConversionResult Convert(ConversionRequest request);
     }
 }
