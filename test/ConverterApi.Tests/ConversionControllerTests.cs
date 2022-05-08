@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using Castle.Core.Logging;
 using ConverterApi.Controllers;
 using ConverterApi.Services;
 using Microsoft.AspNetCore.Mvc;

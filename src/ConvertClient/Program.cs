@@ -7,8 +7,8 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-var conversionApiBase = builder.Configuration["ConversionAPI"];
-builder.Services.AddHttpClient("ConversionAPI", client => 
+var conversionApiBase = builder.Configuration[ConfigValues.ConversionApi];
+builder.Services.AddHttpClient(ConfigValues.ConversionApi, client => 
 {
     client.BaseAddress = new Uri(conversionApiBase);
 });

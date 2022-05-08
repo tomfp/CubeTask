@@ -1,6 +1,5 @@
 ﻿@page "/"
 @using SharedData
-@using ConvertClient.Model
 
 <EditForm Model="temperatureModel">
     <PageTitle>Temperature Conversion</PageTitle>
@@ -31,19 +30,6 @@
     <button class="btn btn-primary" type="submit" onclick="@GetResults">Convert</button>
 </EditForm>
 <p>
-    <text>@temperatureModel.ConversionResult</text>
+    <br/>
+    <b><text>@temperatureModel.ConversionResult</text></b>
 </p>
-@*@code
-{
-    TemperatureModel temperatureModel = new TemperatureModel();
-
-    private void GetResults()
-    {
-        var selecteUnits = temperatureModel.FromUnits;
-
-        // TODO call service
-        var placehoder = 0;
-    }
-
-}
-*@

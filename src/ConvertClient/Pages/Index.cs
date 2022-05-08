@@ -1,25 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ConvertClient.Model;
-using SharedData;
+﻿using ConvertClient.Model;
+using ConvertClient.Services;
+using Microsoft.AspNetCore.Components;
 
 namespace ConvertClient.Pages
 {
     public partial class Index
     {
+        [Inject]
+        ITemperatureService TemperatureService { get; set; }
+
         TemperatureModel temperatureModel = new TemperatureModel();
 
         public async void GetResults()
         {
-            var selecteUnits = temperatureModel.FromUnits;
 
-            // TODO call service
-            var placehoder = 0;
+            temperatureModel.ConversionResult = null;
+            await PerformConversion();
+        }
 
+        private async Task PerformConversion()
+        {
+            var result =
+                await TemperatureService.ConvertTemperature(temperatureModel.Temperature, temperatureModel.FromUnits);
+            if (result.HasErrors)
+            {
+                temperatureModel.ConversionResult = $"Conversion failed: {result.ErrorMessage}";
+            }
+            else
+            {
+                temperatureModel.ConversionResult =
+                    $@"{result.Data.CelsiusValue} Celsius | {result.Data.FahrenheitValue} Fahrenheit | {result.Data.KelvinValue} Kelvin";
+            }
+            StateHasChanged();
         }
     }
 }
