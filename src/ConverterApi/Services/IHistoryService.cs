@@ -3,6 +3,6 @@ namespace ConverterApi.Services
 {
     public interface IHistoryService
     {
-        Task LogUsage(ConversionRequest request);
+        Task LogUsage(ConversionRequest? request);
     }
 }

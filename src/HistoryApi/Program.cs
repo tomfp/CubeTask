@@ -14,7 +14,7 @@ builder.Host.UseSerilog();
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .Enrich.FromLogContext()
-    .MinimumLevel.Information()
+    .MinimumLevel.Warning()
     .WriteTo.Console()
     .WriteTo.File($"{Directory.GetCurrentDirectory()}\\TemperatureConversionUsageHistory.log",
         outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {Message}{NewLine}{Exception}",

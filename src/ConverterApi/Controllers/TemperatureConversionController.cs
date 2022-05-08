@@ -25,12 +25,11 @@ namespace ConverterApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult ConvertTemperature([FromBody] ConversionRequest? request)
+        public async  Task<IActionResult> ConvertTemperature([FromBody] ConversionRequest? request)
         {
+            await LogUsage(request);
             try
             {
-                // TODO Log Requests
-                _historyService.LogUsage(request);
                 //  some basic validation
                 if (request == null)
                 {
@@ -47,6 +46,18 @@ namespace ConverterApi.Controllers
             {
                 _logger.LogError(e, $"ConvertTemperature {request?.Value} From {request?.FromUnits}");
                 return StatusCode(500);
+            }
+        }
+
+        private async Task LogUsage(ConversionRequest? request)
+        {
+            try
+            {
+                await _historyService.LogUsage(request);
+            }
+            catch (Exception e)
+            {
+                _logger.LogWarning($"LogUsage Failed: {e.Message}");
             }
         }
     }

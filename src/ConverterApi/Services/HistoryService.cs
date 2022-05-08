@@ -1,8 +1,7 @@
 ﻿using System.Text;
-
 using Newtonsoft.Json;
-
 using SharedData;
+
 namespace ConverterApi.Services
 {
     public class HistoryService : IHistoryService
@@ -16,8 +15,7 @@ namespace ConverterApi.Services
         {
             var httpClient = _httpClientFactory.CreateClient(ConfigValues.HistoryApi);
             var json = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
-            var response = await httpClient.PostAsync("LogUsage", json);
-            
+            var response = await httpClient.PostAsync("History", json);
         }
     }
 }

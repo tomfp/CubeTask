@@ -29,7 +29,11 @@ namespace ConvertClient.Pages
             else
             {
                 temperatureModel.ConversionResult =
-                    $@"{result.Data.CelsiusValue} Celsius | {result.Data.FahrenheitValue} Fahrenheit | {result.Data.KelvinValue} Kelvin";
+                    $@"{result.Data.CelsiusValue} Celsius | {result.Data.FahrenheitValue} Fahrenheit | {result.Data.KelvinValue} Kelvin ";
+                if (result.Data.Message != null)
+                {
+                    temperatureModel.ConversionResult += $"({result.Data.Message})";
+                }
             }
             StateHasChanged();
         }

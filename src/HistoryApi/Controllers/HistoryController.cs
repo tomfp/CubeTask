@@ -20,6 +20,7 @@ namespace HistoryApi.Controllers
         {
             _logger = logger;
         }
+
         [HttpPost]
         public IActionResult LogUsage([FromBody] ConversionRequest? request)
         {
@@ -32,7 +33,7 @@ namespace HistoryApi.Controllers
             {
                 logMessage = $"Value: {request.Value}, FromUnits: {request.FromUnits}, ClientId: {request.ClientId}";
             }
-            _logger.Information(logMessage);
+            _logger.Warning(logMessage);  
             return NoContent();
         }
     }

@@ -8,6 +8,7 @@ builder.Services.AddControllers();
 builder.Services.AddLogging();
 
 builder.Services.AddScoped<IConversionCalculator, ConversionCalculator>();
+builder.Services.AddScoped<IHistoryService, HistoryService>();
 
 var historyApiBase = builder.Configuration[ConfigValues.HistoryApi];
 
