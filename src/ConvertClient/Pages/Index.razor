@@ -1,7 +1,7 @@
 ﻿@page "/"
 @using SharedData
 
-<EditForm Model="temperatureModel">
+<EditForm Model="_temperatureModel">
     <PageTitle>Temperature Conversion</PageTitle>
 
     <h1>Temperature Conversion</h1>
@@ -9,10 +9,10 @@
         Enter the temperature to be converted, and the units to convert from.
     </p>
     <input placeholder="Temperatue"
-           @bind="temperatureModel.Temperature" class="form-control" />
+           @bind="_temperatureModel.Temperature" class="form-control" />
     <br />
     <p>
-        <InputRadioGroup name="units" @bind-Value="temperatureModel.FromUnits">
+        <InputRadioGroup name="units" @bind-Value="_temperatureModel.FromUnits">
             From Unit:
             <br />
             @foreach (var unit in (EnumTemperatureUnit[])Enum
@@ -31,5 +31,5 @@
 </EditForm>
 <p>
     <br/>
-    <b><text>@temperatureModel.ConversionResult</text></b>
+    <b><text>@_temperatureModel.ConversionResult</text></b>
 </p>

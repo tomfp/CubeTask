@@ -1,38 +1,43 @@
 ﻿using ConvertClient.Model;
 using ConvertClient.Services;
 using Microsoft.AspNetCore.Components;
+using SharedData;
 
 namespace ConvertClient.Pages
 {
     public partial class Index
     {
         [Inject]
-        ITemperatureService TemperatureService { get; set; }
+        ITemperatureService? TemperatureService { get; set; }
 
-        TemperatureModel temperatureModel = new TemperatureModel();
+        readonly TemperatureModel _temperatureModel = new();
 
         public async void GetResults()
         {
 
-            temperatureModel.ConversionResult = null;
+            _temperatureModel.ConversionResult = null;
             await PerformConversion();
         }
 
         private async Task PerformConversion()
         {
-            var result =
-                await TemperatureService.ConvertTemperature(temperatureModel.Temperature, temperatureModel.FromUnits);
-            if (result.HasErrors)
+            if (TemperatureService == null)
             {
-                temperatureModel.ConversionResult = $"Conversion failed: {result.ErrorMessage}";
+                throw new NullReferenceException($"{nameof(TemperatureService)} is null");
+            }
+            var result =
+                await TemperatureService.ConvertTemperature(_temperatureModel.Temperature, _temperatureModel.FromUnits);
+            if (result.HasErrors||result.Data == null )
+            {
+                _temperatureModel.ConversionResult = $"Conversion failed: {result.ErrorMessage}";
             }
             else
             {
-                temperatureModel.ConversionResult =
+                _temperatureModel.ConversionResult =
                     $@"{result.Data.CelsiusValue} Celsius | {result.Data.FahrenheitValue} Fahrenheit | {result.Data.KelvinValue} Kelvin ";
                 if (result.Data.Message != null)
                 {
-                    temperatureModel.ConversionResult += $"({result.Data.Message})";
+                    _temperatureModel.ConversionResult += $"({result.Data.Message})";
                 }
             }
             StateHasChanged();
