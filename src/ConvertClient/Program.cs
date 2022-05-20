@@ -10,7 +10,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 string? conversionApiBase = builder.Configuration[ConfigValues.ConversionApi];
 if (string.IsNullOrWhiteSpace(conversionApiBase))
 {
-    throw new ApplicationException("Invalid ConversionAPI setting in appsettings.json");
+    throw new ArgumentNullException("Invalid ConversionAPI setting in appsettings.json");
 }
 builder.Services.AddHttpClient(ConfigValues.ConversionApi, client => 
 {

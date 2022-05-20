@@ -1,6 +1,7 @@
 ﻿using ConvertClient.Model;
 using ConvertClient.Services;
 using Microsoft.AspNetCore.Components;
+using SharedData;
 
 namespace ConvertClient.Pages
 {
@@ -22,7 +23,7 @@ namespace ConvertClient.Pages
         {
             if (TemperatureService == null)
             {
-                throw new ArgumentNullException(nameof(TemperatureService));
+                throw new NullReferenceException($"{nameof(TemperatureService)} is null");
             }
             var result =
                 await TemperatureService.ConvertTemperature(_temperatureModel.Temperature, _temperatureModel.FromUnits);
